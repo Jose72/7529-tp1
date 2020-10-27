@@ -1,14 +1,8 @@
-
 import sys
 from queue import PriorityQueue
 
 
-def ej2():
-    if len(sys.argv) < 3:
-        print("Not enough arguments")
-
-    item_num = int(sys.argv[1])
-    costs_file = sys.argv[2]
+def ej1(item_num, costs_file):
 
     with open(costs_file, 'r') as fp:
         costs_list = [int(e) for e in fp.readline().strip('\n\t').split(',')]
@@ -32,7 +26,7 @@ def ej2():
               str(vault_items_list[e2[1]]) + ": pago " + str(move_cost) + ", ahora en " + str(e2[1]) + " tengo " +
               str(vault_items_list[e1[1]] + vault_items_list[e2[1]]))
 
-        # Move elements from vault 1 to vault 2
+        # Move elements from first vault to second vault
         vault_items_list[e2[1]] += vault_items_list[e1[1]]
         vault_items_list[e1[1]].clear()
 
@@ -46,4 +40,7 @@ def ej2():
 
 
 if __name__ == '__main__':
-    ej2()
+    if len(sys.argv) < 3:
+        print("Not enough arguments")
+
+    ej1(int(sys.argv[1]), sys.argv[2])
