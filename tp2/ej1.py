@@ -22,19 +22,15 @@ def get_longest_subsequence(S1, S2, T, n, m):
             i -= 1
             j -= 1
         else:
-            max = -1
             if i - 1 > 0 and j - 1 > 0:
-                if T[i-1][j] > max:
-                    max = T[i-1][j]
+                if T[i-1][j] > T[i][j-1]:
                     i -= 1
-                if T[i][j-1] > max:
+                else:
                     j -= 1
             elif i - 1 == 0:
-                if T[i][j-1] > max:
-                    j -= 1
+                j -= 1
             elif j - 1 == 0:
-                if T[i][j-1] > max:
-                    i -= 1
+                i -= 1
 
     subsequence = subsequence[::-1]
     return subsequence
@@ -48,7 +44,6 @@ def check_longest_substring(S1, S2):
     fill_table(S1, S2, n, m, T)
     print("La subcadena más larga es: {} --> longitud {}".format(get_longest_subsequence(S1, S2, T, n, m), T[m][n]))
     print("Porcentage de coincidencia : {} * {} / {} = {}%".format(100, T[m][n], n, 100*T[m][n]/n))
-
     return T[m][n]
 
 
@@ -62,27 +57,28 @@ if __name__ == "__main__":
 
     username = args.u
     nombre = args.n
-    apelllido = args.a
+    apellido = args.a
     password = args.p
 
     c = []
     print("Para el usuario:")
     print("username: " + username)
     print("nombre: " + nombre)
-    print("apellido: " + apelllido)
+    print("apellido: " + apellido)
     print("password: " + password)
     print('\n')
     print('Comparando username "{}" con password "{}"'.format(username, password))
     c.append(check_longest_substring(username, password))
     print('\n')
-    print('Comparando nombre "{}" con password "{}"'.format(username, password))
+    print('Comparando nombre "{}" con password "{}"'.format(nombre, password))
     c.append(check_longest_substring(nombre, password))
     print('\n')
-    print('Comparando apellido "{}" con password "{}"'.format(username, password))
-    c.append(check_longest_substring(apelllido, password))
+    print('Comparando apellido "{}" con password "{}"'.format(apellido, password))
+    c.append(check_longest_substring(apellido, password))
     print('\n')
     print("Mayor longitud de coincidencia {}".format(max(c)))
     print("Longitud de la password: {}".format(len(password)))
     print("Porcentaje de originalidad: {} - {} * {} / {} = {}%".format(100, 100, max(c), len(password),
           100-100*max(c)/len(password)))
+
 
